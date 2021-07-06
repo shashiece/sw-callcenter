@@ -1,0 +1,45 @@
+{% extends "html_template.html" %}
+{% block content %}
+<div class="row mb-4 mt-3">
+    <div class="col-sm-8"><h5 class="mb-0">Agents Details</h5></div>
+    <div class="col-sm-4 text-end">
+        <a href="add_agent" class="btn btn-outline-primary add-new"> + Add New Agent</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table  class="table table-bordered agent_list_table">  
+        <thead>  
+            <th  scope="col">Name</th>  
+            <th  scope="col">Email</th>  
+            <th  scope="col">Personal Number</th>  
+            <th  scope="col">Office Number</th>
+            <th  scope="col">Sip Address</th>
+            <th  scope="col">Username</th> 
+            <th  scope="col">Password</th> 
+            <th>Actions</th>
+        </thead>  
+        
+        {% for row in rows %}  
+        
+            <tr>
+                    <td>{{row["name"]}}</td>  
+                    <td>{{row["email"]}}</td>  
+                    <td>{{row["personal_number"]}}</td>  
+                    <td>{{row["office_number"]}}</td>
+                    <td>{{row["sip_address"]}}</td>
+                    <td>{{row["sip_user_name"]}}</td>
+                    <td>{{row["sip_password"]}}</td>  
+                    <td>
+                        <a href="#" class="me-2"><i class="fa fa-pencil-alt"></i></a>
+                        <a href="#" class="text-danger"><i class="fa fa-trash-alt"></i></a>
+
+                    </td>
+            </tr>  
+        
+        {% endfor %}  
+    </table>
+    
+</div>
+  
+{% endblock content %}

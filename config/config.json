@@ -1,0 +1,14 @@
+{
+"settings":
+	{
+		"name":"Shashi Contact Center",
+		"contactCenterNumber":"+12066030198",
+		"hostname":"http://shashi.gq"
+	},
+"signalwire":
+	{
+		"space":"shashi-fs.signalwire.com",
+		"project":"981ab3f3-3bee-408f-ad96-5ebe87c318ac",
+		"token":"PT44f71ed3fd40a1fc83e1d8d67a4b80f200b0862c5675d794"
+	}
+}

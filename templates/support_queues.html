@@ -1,0 +1,17 @@
+{% extends "html_template.html" %}
+{% block content %}
+
+  <div class="row mt-2">
+<div class="col-md-4">
+ <div class="bg-light p-2">
+    Total Suport Queued Calls {{data['support_members_data']['members_count']}}
+ </div>
+</div>	
+ <div class="col-md-4">
+ <div class="bg-light p-2">
+Total Sales Queued Calls {{session['is_admin']}}
+
+</div>
+ </div>	
+
+{% endblock content %}
