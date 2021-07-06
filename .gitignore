@@ -8,7 +8,7 @@ __pycache__/
 
 
 bin/
-
+include/
 # Distribution / packaging
 .Python
 build/
