@@ -3,7 +3,7 @@
 <div class="row mb-4 mt-3">
     <div class="col-sm-8"><h5 class="mb-0">Agents Details</h5></div>
     <div class="col-sm-4 text-end">
-        <a href="add_agent" class="btn btn-outline-primary add-new"> + Add New Agent</a>
+        <a href="add_agent"  data-bs-toggle="modal" data-bs-target="#addAgentModal" class="btn btn-outline-primary add-new"> + Add New Agent</a>
     </div>
 </div>
 
@@ -31,15 +31,207 @@
                     <td>{{row["sip_user_name"]}}</td>
                     <td>{{row["sip_password"]}}</td>  
                     <td>
-                        <a href="#" class="me-2"><i class="fa fa-pencil-alt"></i></a>
-                        <a href="#" class="text-danger"><i class="fa fa-trash-alt"></i></a>
+                        <!--<a href="#" class="me-2"><i class="fa fa-pencil-alt"></i></a>-->
+                        <!--<i class="fa fa-trash-alt" data-bs-toggle="modal" data-bs-target="#deleteAgentModal"></i>-->
+                        <a href="#" title="Edit" class="me-2" data-bs-toggle="modal" data-bs-target="#editAgentModal-{{row['agent_id']}}"><i class="fa fa-pencil-alt"></i></a>
+                        <a href="#" title="Delete" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteAgentModal-{{row['agent_id']}}"><i class="fa fa-trash"></i></a>
 
                     </td>
             </tr>  
         
+            <!-- Modal -->
+        <div class="modal fade" id="deleteAgentModal-{{row['agent_id']}}" tabindex="-1" aria-labelledby="deleteAgentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteAgentModalLabel">Delete Agent</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mb-3 text-center">
+               <h5 class="small"> Are you sure you want to delete?</h5>
+               <div class="mt-3">
+                   <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <form action="/delete_agent/{{row['agent_id']}}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+             </form>
+            </div>
+               </div>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="editAgentModal-{{row['agent_id']}}" tabindex="-1" aria-labelledby="editAgentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="editAgentModalLabel">Edit Agent</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action = "/update_agent" class="ms-3" method="post">  
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Name</label>
+                                    <input type="text" name="name" value="{{row['name']}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Email</label>
+                                    <input  type="text" name="email"  value="{{row['email']}}" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Password</label>
+                                    <input type="text" name="password"  value="{{row['password']}}"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Personal Number</label>
+                                    <input type="text" name="personal_number"  value="{{row['personal_number']}}" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Office Number</label>
+                                    <input type="text" name="office_number"  value="{{row['office_number']}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Sip Address</label>
+                                    <input type="text" name="sip_address"  value="{{row['sip_address']}}"  class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Sip Username</label>
+                                    <input type="text" name="sip_user_name" value="{{row['sip_user_name']}}"  class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Sip Password</label>
+                                    <input type="text" name="sip_password"  value="{{row['sip_password']}}" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="agent_id"  value="{{row['agent_id']}}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+       
+
+
         {% endfor %}  
     </table>
-    
+
+
+    <div class="modal fade" id="addAgentModal" tabindex="-1" aria-labelledby="addAgentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="addAgentModalLabel">Add Agent</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action = "/save_agent_details" class="ms-3" method="post">  
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Name</label>
+                                <input type="text" name="name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Email</label>
+                                <input  type="text" name="email" class="form-control" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Password</label>
+                                <input type="text" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Personal Number</label>
+                                <input type="text" name="personal_number" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Office Number</label>
+                                <input type="text" name="office_number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Sip Address</label>
+                                <input type="text" name="sip_address" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Sip Username</label>
+                                <input type="text" name="sip_user_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Sip Password</label>
+                                <input type="text" name="sip_password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+              
+                
+            </div>
+        </div>
+        </div>
+    </div>
+
+
 </div>
+
+
+
+  
   
 {% endblock content %}

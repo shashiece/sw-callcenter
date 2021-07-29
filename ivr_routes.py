@@ -2,6 +2,11 @@ from flask import render_template, url_for, flash, request, redirect, Response
 from __main__ import app
 from signalwire.voice_response import VoiceResponse, Say , Gather
 
+import json
+
+with open('config/config.json') as f:
+     ccConfig = json.load(f)
+
 @app.route('/welcome_ivr', methods=['GET','POST'])
 def welcom_ivr():
     response = VoiceResponse()

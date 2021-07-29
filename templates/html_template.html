@@ -1,111 +1,135 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
 
-<meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
+
+  <meta charset="utf-8">
   {% if title %}
-   <title>{{ title }}</title>
+  <title>{{ title }}</title>
   {% endif %}
 
-	<link href="../static/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="../static/css/sidebars.css" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-	<link href="../static/css/custom.css" rel="stylesheet"/>
+
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/sidebars.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="../static/css/custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/css/Treant.css">
+    <link rel="stylesheet" href="../static/css/ivrdata.css">
 </head>
 
 <body>
-	{% if page == 'login' %}
-      {% block login %}
-      {% endblock %}
-   {%else%}
-   <nav class="navbar navbar-expand-md fixed-top" aria-label="Fourth navbar example">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Signalwire</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarsExample04">
-          
-          <div class="dropdown profile">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          
-        </a>
-        <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
-          
-          <!--<li><a class="dropdown-item" href="#">Profile</a></li>-->
-          <!--<li><hr class="dropdown-divider"></li>-->
-          <li><a class="dropdown-item" href="logout">Sign out</a></li>
-        </ul>
-      </div>
+  {% if page == 'login' %}
+  {% block login %}
+  {% endblock %}
+  {%else%}
+  <nav class="navbar navbar-expand-md fixed-top" aria-label="Fourth navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Signalwire</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04"
+        aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse flex-grow-0" id="navbarsExample04">
+
+        <div class="dropdown profile">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
+            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+
+          </a>
+          <ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
+
+            <!--<li><a class="dropdown-item" href="#">Profile</a></li>-->
+            <!--<li><hr class="dropdown-divider"></li>-->
+            <li><a class="dropdown-item" href="logout">Sign out</a></li>
+          </ul>
         </div>
       </div>
-    </nav>
-     <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 pt-3 left-nav-main">
+    </div>
+  </nav>
+  <main>
+    <div class="d-flex flex-column flex-shrink-0 p-3 pt-3 left-nav-main">
       <ul class="nav nav-pills flex-column mb-auto left-nav">
-         
-         <li>
-            <a href="profile" class="nav-link {{active_profile}}">
-             <div class="lh-sm">
-                <label><i class="fa fa-user me-2"></i>Profile</label> 
-             </div>
-            </a>
-          </li>
-      
-         <li class="nav-item">
-            <a href="support_queues" class="nav-link {{active_queues}}" aria-current="page">
-    
-                    <div class="lh-sm">
-                        <label><i class="fab fa-buffer me-2"></i> Queues</label>
-                     </div>
-            </a>
-          </li>
-          <li>
-    
+
+        <li>
+          <a href="/profile" class="nav-link {{active_profile}}">
+            <div class="lh-sm">
+              <label><i class="fa fa-user me-2"></i>Profile</label>
+            </div>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/support_queues" class="nav-link {{active_queues}}" aria-current="page">
+
+            <div class="lh-sm">
+              <label><i class="fab fa-buffer me-2"></i> Queues</label>
+            </div>
+          </a>
+        </li>
+        <li>
+
         <li>
           <a href="#" class="nav-link ">
-           <div class="lh-sm">
-              <label><i class="fa fa-phone me-2"></i> Calls History</label> 
-           </div>
+            <div class="lh-sm">
+              <label><i class="fa fa-phone me-2"></i> Calls History</label>
+            </div>
           </a>
         </li>
         <li>
           <a href="#" class="nav-link ">
-           <div class="lh-sm">
-              <label><i class="fa fa-microphone me-2"></i>Voice Mails</label> 
-           </div>
-           
-          </a>
-        </li> 
-        {% if session['is_admin']  == True %}
-        <li class="nav-item">
-           <a href="agents_list" class="nav-link {{active_tab_agents}}" aria-current="page">
-               <div class="lh-sm">
-            <label><i class="fa fa-users me-2"></i> Agents</label>
+            <div class="lh-sm">
+              <label><i class="fa fa-microphone me-2"></i>Voice Mails</label>
             </div>
-           </a>
-         </li>
-         <li class="nav-item">
-            <a href="products" class="nav-link " aria-current="page">
-                <div class="lh-sm">
-                <label><i class="fa fa-cubes me-2"></i>Products</label>
-             </div>
-            </a>
-         </li>
+
+          </a>
+        </li>
+        {% if session['is_admin'] == True %}
+        <li class="nav-item">
+          <a href="/ivr_flows_list" class="nav-link {{active_tab_ivr_flows}}" aria-current="page">
+            <div class="lh-sm">
+              <label><i class="fa fa-users me-2"></i> Ivr Flows</label>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/agents_list" class="nav-link {{active_tab_agents}}" aria-current="page">
+            <div class="lh-sm">
+              <label><i class="fa fa-users me-2"></i> Agents</label>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/products_list" class="nav-link {{active_tab_products}}" aria-current="page">
+            <div class="lh-sm">
+              <label><i class="fa fa-cubes me-2"></i>Products</label>
+            </div>
+          </a>
+        </li>
         {% endif %}
       </ul>
-        </div> 
-        <div class="container-fluid scrollarea py-1 px-4">
-         {% block content %}{% endblock %}
-        </div>   
-     </main>
-	{% endif %}
-	<script src="../static/js/bootstrap.bundle.min.js"></script>
-	
-</body>
-</html>
+    </div>
+    <div class="container-fluid scrollarea py-1 px-4">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+  {% endif %}
 
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/raphael.js"></script>
+  <script src="../static/js/Treant.js"></script>
+  <script src="../static/js/ivrdata.js"></script>
+  <script src="../static/js/create_ivr.js"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.8/js/jsplumb.min.js"></script>
+  <script src="../static/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

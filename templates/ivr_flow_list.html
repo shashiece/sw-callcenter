@@ -1,0 +1,131 @@
+{% extends "html_template.html" %}
+{% block content %}
+<div class="row mb-4 mt-3">
+    <div class="col-sm-8"><h5 class="mb-0">Ivr Flow Details</h5></div>
+    <div class="col-sm-4 text-end">
+        <a href="add_ivr_flow"  data-bs-toggle="modal" data-bs-target="#addIvrFlowModal" class="btn btn-outline-primary add-new"> + Add New Ivr Flow</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table  class="table table-bordered ivr_flow_list_table">  
+        <thead>  
+            <th  scope="col">Id</th> 
+            <th  scope="col">Name</th>  
+            <th  scope="col">View Ivr Data</th>  
+            <th>Actions</th>
+        </thead>  
+        
+        {% for row in rows %}  
+            <tr>
+                <td>{{row["ivr_flow_id"]}}</td> 
+                <td>{{row["Ivr_flow_name"]}}</td>  
+                <td><a href='create_ivr_flow/{{row["ivr_flow_id"]}}'>View Ivr FLow</a></td>  
+                <td>
+                    <!--<a href="#" class="me-2"><i class="fa fa-pencil-alt"></i></a>-->
+                    <!--<i class="fa fa-trash-alt" data-bs-toggle="modal" data-bs-target="#deleteIvr FlowModal"></i>-->
+                    <a href="#" title="Edit" class="me-2" data-bs-toggle="modal" data-bs-target="#editIvrFlowModal-{{row['ivr_flow_id']}}"><i class="fa fa-pencil-alt"></i></a>
+                    <a href="#" title="Delete" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteIvrFlowModal-{{row['ivr_flow_id']}}"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>  
+        
+            <!-- Modal -->
+        <div class="modal fade" id="deleteIvrFlowModal-{{row['ivr_flow_id']}}" tabindex="-1" aria-labelledby="deleteIvr FlowModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="deleteIvr FlowModalLabel">Delete Ivr Flow</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mb-3 text-center">
+               <h5 class="small"> Are you sure you want to delete?</h5>
+               <div class="mt-3">
+                   <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <form action="/delete_ivr_flow/{{row['ivr_flow_id']}}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+             </form>
+            </div>
+               </div>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="editIvrFlowModal-{{row['ivr_flow_id']}}" tabindex="-1" aria-labelledby="editIvr FlowModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="editIvr FlowModalLabel">Edit Ivr Flow</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action = "/update_ivr_flow" class="ms-3" method="post">  
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Name</label>
+                                    <input type="text" name="name" value="{{row['Ivr_flow_name']}}" class="form-control">
+                                </div>
+                            </div>
+                        <input type="hidden" name="ivr_flow_id"  value="{{row['ivr_flow_id']}}"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+       
+
+
+        {% endfor %}  
+    </table>
+
+
+    <div class="modal fade" id="addIvrFlowModal" tabindex="-1" aria-labelledby="addIvr FlowModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="addIvr FlowModalLabel">Add Ivr Flow</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action = "/save_ivr_flow_details" class="ms-3" method="post">  
+                    <div class="row mt-4">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="mb-2">Name</label>
+                                <input type="text" name="name" class="form-control">
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create Ivr Flow</button>
+                    </form>
+              
+                
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+  
+  
+{% endblock content %}

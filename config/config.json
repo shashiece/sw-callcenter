@@ -3,7 +3,8 @@
 	{
 		"name":"Shashi Contact Center",
 		"contactCenterNumber":"+12066030198",
-		"hostname":"http://shashi.gq"
+		"hostname":"http://shashi.gq",
+		"database_file":"/root/signalwire_support_callcenter/signalwire_support_callcenter_db.db"
 	},
 "signalwire":
 	{

@@ -17,10 +17,14 @@ with open('config/config.json') as f:
      ccConfig = json.load(f)
      # Dump config to console, for debugging
      pprint.pprint(ccConfig)
-
+     pprint.pprint(ccConfig['settings']['database_file'])
 
 import ivr_routes
-import admin_actions
+import agent_actions
+import product_actions
+import product_agent_actions
+import forms
+import ivr_flow_actions
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -48,7 +52,7 @@ class Agent(UserMixin):
 
 @login_manager.user_loader
 def load_user(agent_id):
-   conn = sqlite3.connect('/root/signalwire_support_callcenter/signalwire_support_callcenter.db')
+   conn = sqlite3.connect(ccConfig['settings']['database_file'])
    curs = conn.cursor()
    curs.execute("SELECT * from agent where agent_id = (?)",[agent_id])
    lu = curs.fetchone()
@@ -73,7 +77,7 @@ def login():
      return redirect(url_for('profile'))
   form = LoginForm()
   if form.validate_on_submit():
-     conn = sqlite3.connect('/root/signalwire_support_callcenter/signalwire_support_callcenter.db')
+     conn = sqlite3.connect(ccConfig['settings']['database_file'])
      curs = conn.cursor()
      curs.execute("SELECT * FROM agent where email = (?)",    [form.email.data])
      agent = list(curs.fetchone())
@@ -111,6 +115,11 @@ def support_queues():
   sales_members_data['members'] = sales_members
 
   return render_template('support_queues.html',title='Support Queues',data={"support_members_data": support_members_data,"sales_members_data":sales_members_data},active_queues="active")
+
+
+@app.route("/create_ivr", methods=['GET'])
+def create_ivr():
+   return render_template('create_ivr_flow.html')
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0',port=8080,threaded=True)
